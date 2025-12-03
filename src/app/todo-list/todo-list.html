@@ -1,0 +1,67 @@
+<div class="container">
+  <div class="header">
+    <div class="header-content">
+      <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="8" y1="6" x2="21" y2="6"></line>
+        <line x1="8" y1="12" x2="21" y2="12"></line>
+        <line x1="8" y1="18" x2="21" y2="18"></line>
+        <line x1="3" y1="6" x2="3.01" y2="6"></line>
+        <line x1="3" y1="12" x2="3.01" y2="12"></line>
+        <line x1="3" y1="18" x2="3.01" y2="18"></line>
+      </svg>
+      <h1>To-Do List</h1>
+    </div>
+  </div>
+
+  <div class="add-todo-card">
+    <div class="input-group">
+      <input 
+        [(ngModel)]="newTodo" 
+        (keyup.enter)="addTodo()"
+        [disabled]="loading"
+        placeholder="Enter a new to-do item..."
+        class="todo-input"
+      />
+      <button 
+        (click)="addTodo()"
+        [disabled]="loading || !newTodo.trim()"
+        class="add-button"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="12" y1="5" x2="12" y2="19"></line>
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+        </svg>
+        Add
+      </button>
+    </div>
+  </div>
+
+  <div class="todo-list-card">
+    <h2 class="list-title">Your Tasks ({{ todos.length }})</h2>
+    
+    <div *ngIf="loading && todos.length === 0" class="loading">
+      Loading tasks...
+    </div>
+
+    <div *ngIf="!loading && todos.length === 0" class="empty-state">
+      <svg class="empty-icon" xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+      </svg>
+      <p>No tasks yet. Add your first to-do item above!</p>
+    </div>
+
+    <ul class="todo-list" *ngIf="todos.length > 0">
+      <li *ngFor="let todo of todos" class="todo-item">
+        <svg class="check-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+          <polyline points="22 4 12 14.01 9 11.01"></polyline>
+        </svg>
+        <div class="todo-content">
+          <p class="todo-text">{{ todo.title }}</p>
+          <p class="todo-date">Added: {{ todo.createdAt | date:'short' }}</p>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
