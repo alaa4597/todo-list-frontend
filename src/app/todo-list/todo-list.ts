@@ -32,7 +32,7 @@ export class TodoList implements OnInit {
   todos: Todo[] = [];
   newTodo: string = '';
   loading: boolean = false;
-  apiUrl = 'http://localhost:3005/api/task';
+  apiUrl = 'https://todo-list-backend-rho-ecru.vercel.app/api/task';
 
   constructor(private http: HttpClient) {}
 
